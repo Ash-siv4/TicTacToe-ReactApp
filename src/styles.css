@@ -1,3 +1,4 @@
+/* CSS selectors (* and body) define the style of large parts of the app */
 * {
     box-sizing: border-box;
   }
@@ -57,6 +58,7 @@
   }
   
   .square {
+    /* Styles the button in the Square component and any other components where the className property is set to "square" */
     background: #fff;
     border: 1px solid #999;
     float: left;
