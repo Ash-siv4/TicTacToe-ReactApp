@@ -12,6 +12,10 @@ export default function Board() {
   // define handleClick function in the Board instead - updates the 'squares' array regarding the board's state
   //JS closure example: inner function (handleClick) can access variables & functions defined in a outer function (like setSquares/squares)
   function handleclick(i) {
+    // check if the Square has a value already first to avoid overwriting it (without this, you can click on a square multiple times and it will alternate between X and O in the same square)
+    if (squares[i]) {
+      return;
+    }
     const nextSquares = squares.slice(); // creates a copy of the 'squares' array and calls it 'nextSquares' - this is done for immutability, the original array's data is unchanged and a copied array is mutated instead, allowing for different versions of the data to be kept (useful for time-travel features, e.g. history)
     if (xIsNext) {
       // if(true) -> set square as X, else set square at O
