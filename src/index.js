@@ -1,17 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// This file is the bridge between the App.js file and the web browser
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import React, { StrictMode } from "react"; // React
+import { createRoot } from "react-dom/client"; // Library in React to talk to the web browser (React DOM)
+import "./styles.css"; // CSS file called for styling components
+
+import App from "./App"; // Call the created components created in the App.js file
+
+const root = createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
