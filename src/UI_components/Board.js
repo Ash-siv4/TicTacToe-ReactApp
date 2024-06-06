@@ -7,12 +7,20 @@ export default function Board() {
   // the array is set to a length of "9" and each element is initially set to "null"
   //entries into the array correspond to the values in each square of the board, e.g:['O',null,'X','X','X','O','O',null,null]
   const [squares, setSquares] = useState(Array(9).fill(null));
+  // boolean state to track which player goes next, 'X' or 'O'
+  const [xIsNext, setXIsNext] = useState(true);
   // define handleClick function in the Board instead - updates the 'squares' array regarding the board's state
   //JS closure example: inner function (handleClick) can access variables & functions defined in a outer function (like setSquares/squares)
   function handleclick(i) {
-    const nextSquares = squares.slice(); // creates a copy of the 'squares' array and calls it 'nextSquares'
-    nextSquares[i] = "X"; // updates the copied array and assigns 'X' to the first index - hardcoded to the upper-left square only because of the [0] so change to [i] and pass in 'i' as a function parameter
+    const nextSquares = squares.slice(); // creates a copy of the 'squares' array and calls it 'nextSquares' - this is done for immutability, the original array's data is unchanged and a copied array is mutated instead, allowing for different versions of the data to be kept (useful for time-travel features, e.g. history)
+    if (xIsNext) {
+      // if(true) -> set square as X, else set square at O
+      nextSquares[i] = "X"; // updates the copied array and assigns 'X' to the first(i) index - hardcoded to the upper-left square only because of the [0] so change to [i] and pass in 'i' as a function parameter
+    } else {
+      nextSquares[i] = "O";
+    }
     setSquares(nextSquares); // call 'setSquares' to say the state has changed and the BOARD and SQUARE components re-render
+    setXIsNext(!xIsNext); //to alternate the state variable 'xIsNext' between true and false, representing turns - ! for not since variable initialised to true
   }
   return (
     // components can only return a single JSX element

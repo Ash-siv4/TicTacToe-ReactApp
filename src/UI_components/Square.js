@@ -1,3 +1,4 @@
+//CHILD COMPONENTS AUTOMATICALLY RE-RENDER WHEN THE PARENT DOES
 import { useState } from "react";
 // function - JS keyword: defines a function
 // Square - function name
