@@ -13,7 +13,8 @@ export default function Board() {
   //JS closure example: inner function (handleClick) can access variables & functions defined in a outer function (like setSquares/squares)
   function handleclick(i) {
     // check if the Square has a value already first to avoid overwriting it (without this, you can click on a square multiple times and it will alternate between X and O in the same square)
-    if (squares[i]) {
+    if (squares[i] || calculateWinner(squares)) {
+      // the || calculateWinner(squares) checks if a player has won after checking if the user clicked a square that has a value in it already which in both cases would cause a return to stop the execution of the rest of the function
       return;
     }
     const nextSquares = squares.slice(); // creates a copy of the 'squares' array and calls it 'nextSquares' - this is done for immutability, the original array's data is unchanged and a copied array is mutated instead, allowing for different versions of the data to be kept (useful for time-travel features, e.g. history)
@@ -26,6 +27,18 @@ export default function Board() {
     setSquares(nextSquares); // call 'setSquares' to say the state has changed and the BOARD and SQUARE components re-render
     setXIsNext(!xIsNext); //to alternate the state variable 'xIsNext' between true and false, representing turns - ! for not since variable initialised to true
   }
+  // assign output of calculateWinner function to 'winner' variable
+  const winner = calculateWinner(squares);
+  let status; // declare status variable to display info to players
+  // conditional to check if 'winner' has a value of 'X', 'O' or null
+  if (winner) {
+    // update status to below if winner='X' or 'O'
+    status = "Winner: " + winner;
+  } else {
+    // update status to below if winner=null
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
+
   return (
     // components can only return a single JSX element
     // to return multiple JSX elements, they need to be wrapped in Fragments: <> and </>
@@ -35,7 +48,9 @@ export default function Board() {
     // onSquareClick={handleclick(0)} - infinite loop as the function is called too early and keeps rerendering the board
     // vs.
     // onSquareClick={() => handleclick(0)} - waits for the user to click the square and then calls the function so no infinite loop
+    // STATUS div to display value stored in the variable, needs a {} as it is a JS variable the data is extracted from
     <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleclick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleclick(1)} />
@@ -53,4 +68,28 @@ export default function Board() {
       </div>
     </>
   );
+}
+
+function calculateWinner(squares) {
+  // possible "win" scenarios: vertically(3 options), horizontally(3 options), diagonally(2 options)
+  const lines = [
+    //a,b, c
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    // gets the values of the squares at each of the 'lines' array locations and sets them as a,b,c respectively
+    const [a, b, c] = lines[i];
+    // check if a= X or O then see if b and c are equal to a to make sure there is 3 of the same in a row
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
 }
