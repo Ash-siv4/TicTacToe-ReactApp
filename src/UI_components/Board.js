@@ -1,14 +1,19 @@
 import { useState } from "react";
 import Square from "./Square";
 // declare a function called 'Square()', later renamed to 'Board()'
-export default function Board() {
+// passed in props to Board which will be called from Game and a new onPlay function
+export default function Board({ xIsNext, squares, onPlay }) {
   // create a state variable called "squares" which is updated using "setSquares"
   // state variable is declared as an array
   // the array is set to a length of "9" and each element is initially set to "null"
   //entries into the array correspond to the values in each square of the board, e.g:['O',null,'X','X','X','O','O',null,null]
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  // --------------------------------------------------
+  //   const [squares, setSquares] = useState(Array(9).fill(null)); // remove after lifting state to the GAME component to implement HISTORY feature
+  // --------------------------------------------------
   // boolean state to track which player goes next, 'X' or 'O'
-  const [xIsNext, setXIsNext] = useState(true);
+  // --------------------------------------------------
+  //   const [xIsNext, setXIsNext] = useState(true); // remove after lifting state to the GAME component to implement HISTORY feature
+  // --------------------------------------------------
   // define handleClick function in the Board instead - updates the 'squares' array regarding the board's state
   //JS closure example: inner function (handleClick) can access variables & functions defined in a outer function (like setSquares/squares)
   function handleclick(i) {
@@ -24,8 +29,11 @@ export default function Board() {
     } else {
       nextSquares[i] = "O";
     }
-    setSquares(nextSquares); // call 'setSquares' to say the state has changed and the BOARD and SQUARE components re-render
-    setXIsNext(!xIsNext); //to alternate the state variable 'xIsNext' between true and false, representing turns - ! for not since variable initialised to true
+    onPlay(nextSquares); //replaced setSquares and setXIsNext with a call to the onPlay function
+    // ------------------------------------------------
+    // setSquares(nextSquares); // call 'setSquares' to say the state has changed and the BOARD and SQUARE components re-render
+    // setXIsNext(!xIsNext); //to alternate the state variable 'xIsNext' between true and false, representing turns - ! for not since variable initialised to true
+    // ------------------------------------------------
   }
   // assign output of calculateWinner function to 'winner' variable
   const winner = calculateWinner(squares);

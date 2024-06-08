@@ -14,15 +14,15 @@ export default function Square({ value, onSquareClick }) {
   // setValue - function used to change the value
   // ---------------------------------------------------
   // const [value, setValue] = useState(null); // no longer necessary after LIFTING STATE to the parent component
-  // ---------------------------------------------------
+  // --------------------------------------------------
   // created a function which when called, prints "clicked!" to the console (ctrl+shift+j)
-  // ---------------------------------------------------
+  // --------------------------------------------------
   // function handleClick() {
   //   // console.log("clicked!");
   //   // Displays "X" on the browser when button is clicked
   //   setValue("X");
   // }
-  // ---------------------------------------------------
+  // --------------------------------------------------
   // return - JS keyword: what value will be returned to the caller of the function
   // <button> - JSX element (JS code + HTML tags)
   // className="square" - button property (prop) for CSS styling
