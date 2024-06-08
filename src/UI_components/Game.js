@@ -22,8 +22,26 @@ export default function Game() {
     // ... - spread operator = Arrays: Copying, combining, and spreading elements as arguments || Objects: Copying and merging properties || Functions: Spreading array elements as individual arguments
     setHistory([...history, nextSquares]); // creates a new array containing items from history and also items from nextSquares
     // example: if history is [[null,null,null], ["X",null,null]] and nextSquares is ["X",null,"O"], then the new [...history, nextSquares] array will be [[null,null,null], ["X",null,null], ["X",null,"O"]]
-    setXNext(!xNext);// toggle xNext like Board used to
+    setXNext(!xNext); // toggle xNext like Board used to
   }
+  function jumpTo(nextMove) {
+    // TODO
+  }
+  // .map - transform one array into another
+  const moves = history.map((squares, move) => {
+    // Here 'map' is used to transform "history" of moves into react elements representing buttons on the screen - call the "jumpTo" function to jump past moves when the button is clicked
+    let description;
+    if (move > 0) {
+      description = "Go to move #" + move;
+    } else {
+      description = "Go to GAME START";
+    }
+    return (
+      <li>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
   // additional "div"s are to make room for the game information, e.g. history.
   return (
     <div className="game">
@@ -31,7 +49,7 @@ export default function Game() {
         <Board xIsNext={xNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{/* TODO */}</ol>
+        <ol>{moves}</ol>
       </div>
     </div>
   );
