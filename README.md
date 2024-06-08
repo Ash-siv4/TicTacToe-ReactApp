@@ -184,7 +184,7 @@ Here are some ideas for improving the Tic-Tac-Toe game, listed in order of incre
 4. **Winning Highlight**: When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw).
 5. **Move Location**: Display the location for each move in the format (row, col) in the move history list.
 
-Feel free to contribute to this project by implementing any of these features or coming up with new ideas!
+[Reference](https://react.dev/learn/tutorial-tic-tac-toe)
 
 <!-- # Getting Started with Create React App
 
